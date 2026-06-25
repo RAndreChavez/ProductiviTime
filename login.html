@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+<h2>Welcome to ProductiviTime</h2>
+
+<div class="container1">
+  <img src="/static/calendar.png" alt="Snow" style="width:100%">
+  <form method="get" action="/calendar"><button class="indexbutton">Calendar</button></form>
+</div>
+
+<div class="container2">
+  <img src="/static/todolist.png" alt="Snow" style="width:100%">
+  <form method="get" action="/todolists"><button class="indexbutton">TO-DO List</button></form>
+</div>
+
+<div class="container3">
+  <img src="/static/countdown.png" alt="Snow" style="width:100%">
+  <form method="get" action="/countdowns"><button class="indexbutton">Countdowns</button></form>
+</div>
+
+
+{% endblock %}
