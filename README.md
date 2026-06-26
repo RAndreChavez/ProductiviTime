@@ -94,7 +94,7 @@ productivitime/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/productivitime.git
+git clone https://github.com/RAndreChavez/productivitime.git
 cd productivitime
 ```
 
@@ -173,6 +173,3 @@ This project uses FullCalendar and a to-do list interface reference. The origina
 - `FULLCALENDAR LICENSE.txt`
 - `TODOLIST LICENSE.txt`
 
-## Project Status
-
-This project was originally built in the CS50 IDE as a CS50 final project. The source code has been recovered and organized for GitHub while keeping the original project files and structure.
