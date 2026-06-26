@@ -1,37 +1,55 @@
 # ProductiviTime
 
-ProductiviTime is a Flask-based productivity web application created as my CS50 final project. It helps users organize tasks, schedule events, and track countdowns for important dates through one simple dashboard.
+ProductiviTime is a Flask-based productivity web application created as my CS50 final project. It was my first complete personal web application and was designed to help users organize their time, events, and tasks in one place.
 
-Demo video: https://www.youtube.com/watch?v=9otSehOOepg
+Video demo: https://www.youtube.com/watch?v=9otSehOOepg
 
-## Project Overview
+## Description
 
-ProductiviTime gives users three main productivity modules:
+ProductiviTime helps users stay organized through three main productivity tools:
 
-- **Calendar**: add events by date and display them in a calendar interface.
-- **Countdowns**: automatically show how much time is left until saved events.
-- **To-Do List**: add tasks, edit tasks, delete tasks, and update task status.
+- A calendar for saving events
+- A countdowns page for tracking time left until saved events
+- A to-do list for managing tasks and task status
 
-The app includes user registration, login, session-based authentication, and a SQLite database that stores users, events, and tasks separately for each account.
+The application includes user registration, login, logout, session-based authentication, database-backed event storage, and AJAX-based task updates.
 
-## Features
+## Main Features
 
-- User registration
-- User login and logout
-- Session-based route protection
-- Homepage dashboard
-- Calendar event creation
-- Event storage by user
-- Countdown display for saved events
-- Event deletion from countdowns
-- To-do task creation
-- To-do task editing
-- To-do task deletion
-- Task status cycling: Todo, In Progress, Complete
-- SQLite database integration
-- AJAX-based task updates
-- FullCalendar integration
-- Bootstrap-based interface
+### User Authentication
+
+Users can register with a username, password, and password confirmation. After registering, users can log in and access their personal productivity dashboard.
+
+### Homepage Dashboard
+
+After logging in, users are taken to a homepage with three main modules:
+
+- Calendar
+- Countdowns
+- To-Do List
+
+### Calendar
+
+The calendar module allows users to add events by selecting a day, month, year, and event title. Events are saved in the database and displayed on the calendar.
+
+### Countdowns
+
+The countdowns module displays how many days, hours, minutes, and seconds are left until each saved event. Events shown here are connected to the calendar database. Users can also delete events from the countdowns page.
+
+### To-Do List
+
+The to-do list module allows users to:
+
+- Add tasks
+- Edit task descriptions
+- Delete tasks
+- Update task status
+
+Tasks can move between these statuses:
+
+- Todo
+- In Progress
+- Complete
 
 ## Technologies Used
 
@@ -47,7 +65,7 @@ The app includes user registration, login, session-based authentication, and a S
 - Bootstrap
 - FullCalendar
 
-## Repository Structure
+## Project Structure
 
 ```text
 productivitime/
@@ -56,14 +74,10 @@ productivitime/
 ├── project.db
 ├── requirements.txt
 ├── README.md
-├── database/
-│   └── schema.sql
-├── licenses/
-│   ├── FULLCALENDAR LICENSE.txt
-│   └── TODOLIST LICENSE.txt
+├── FULLCALENDAR LICENSE.txt
+├── TODOLIST LICENSE.txt
 ├── static/
-│   ├── styles.css
-│   └── README.md
+│   └── styles.css
 └── templates/
     ├── apology.html
     ├── calendar.html
@@ -84,83 +98,81 @@ git clone https://github.com/YOUR-USERNAME/productivitime.git
 cd productivitime
 ```
 
-### 2. Create and activate a virtual environment
+### 2. Create a virtual environment
 
 On Windows PowerShell:
 
 ```powershell
 py -m venv .venv
-.\.venv\Scripts\Activate.ps1
 ```
 
 On macOS or Linux:
 
 ```bash
 python3 -m venv .venv
-source .venv/bin/activate
 ```
 
 ### 3. Install dependencies
 
-```bash
-pip install -r requirements.txt
+You can install the dependencies without activating the virtual environment.
+
+On Windows PowerShell:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-### 4. Set the Flask app
+On macOS or Linux:
+
+```bash
+./.venv/bin/python -m pip install --upgrade pip
+./.venv/bin/python -m pip install -r requirements.txt
+```
+
+### 4. Run the application
 
 On Windows PowerShell:
 
 ```powershell
 $env:FLASK_APP = "application.py"
+.\.venv\Scripts\python.exe -m flask run
 ```
 
 On macOS or Linux:
 
 ```bash
 export FLASK_APP=application.py
+./.venv/bin/python -m flask run
 ```
 
-### 5. Run the application
-
-```bash
-flask run
-```
-
-Then open the local link shown in the terminal.
+Then open the local URL shown in the terminal.
 
 ## Database
 
-This repository includes a clean `project.db` database generated from the original schema. The schema is also included in:
+The application uses SQLite through the CS50 SQL Library.
+
+The database file is:
 
 ```text
-database/schema.sql
+project.db
 ```
 
-The database stores:
+The application connects to it in `application.py` with:
 
-- Users and password hashes
-- Calendar events
-- To-do tasks
-- Task status values
+```python
+db = SQL("sqlite:///project.db")
+```
 
-## Notes
-
-This project was originally built in the CS50 IDE as a CS50 final project. The uploaded version has been organized into a standard Flask project structure for GitHub.
-
-The original homepage references image files named `calendar.png`, `todolist.png`, and `countdown.png`. Add those files into the `static/` folder if you recover them.
+Because of this, `project.db` should stay in the same folder as `application.py`.
 
 ## Credits and Licenses
 
-This project uses FullCalendar and a to-do list UI reference. Their license files are included in the `licenses/` folder.
+This project uses FullCalendar and a to-do list interface reference. The original license files are included in this repository:
 
-## Future Improvements
+- `FULLCALENDAR LICENSE.txt`
+- `TODOLIST LICENSE.txt`
 
-Possible future updates include:
+## Project Status
 
-- Modernizing the UI
-- Adding responsive layouts
-- Improving date validation
-- Adding event editing
-- Adding countdown sorting
-- Adding screenshots to this README
-- Deploying the app online
+This project was originally built in the CS50 IDE as a CS50 final project. The source code has been recovered and organized for GitHub while keeping the original project files and structure.

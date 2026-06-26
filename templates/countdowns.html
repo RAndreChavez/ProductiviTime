@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Countdowns
+{% endblock %}
+
+{% block main %}
+    <body>
+       {% set day = '' %}
+       {% set hour = '' %}
+       {% set minute = '' %}
+       {% set second = '' %}
+       {% for event in events %}
+       {{loop.index}}
+       {% set day = 'day' ~ loop.index %}
+       {% set hour = 'hour' ~ loop.index %}
+       {% set minute = 'minute' ~ loop.index %}
+       {% set second = 'second' ~ loop.index %}
+       <table class="countdown-container">
+           <tr class="countdown-content">
+               <td colspan="4">{{ event["title"] }}</td>
+           </tr>
+           <tr class="countdown-content">
+               <td id ={{day}}>0</td>
+               <td id ={{hour}}>0</td>
+               <td id ={{minute}}>0</td>
+               <td id ={{second}}>0</td>
+           </tr>
+           <tr>
+               <td>Days</td>
+               <td>Hours</td>
+               <td>Minutes</td>
+               <td>Seconds</td>
+           </tr>
+       </table>
+       {% endfor %}
+       <script type="text/javascript">
+
+           function countdown(days, hours, minutes, seconds, date){
+
+               var evYear = date.substr(0, 4);
+               var evMonth = date.substr(5, 2);
+               var evDay = date.substr(8, 2);
+
+               var now = new Date().getTime();
+               var eventDate = new Date(evYear, evMonth, evDay).getTime();
+
+               var remTime = eventDate - now - 2678400000;
+
+               if (remTime < 0) {
+                   remTime = 0
+                }
+
+               var s = Math.floor(remTime / 1000);
+               var m = Math.floor(s / 60);
+               var h = Math.floor(m / 60);
+               var d = Math.floor(h / 24);
+
+               h %= 24;
+               m %= 60;
+               s %= 60;
+
+
+
+               document.getElementById(days).textContent = d;
+               document.getElementById(days).innerText = d;
+
+               document.getElementById(hours).textContent = h;
+               document.getElementById(minutes).textContent = m;
+               document.getElementById(seconds).textContent = s;
+
+               setTimeout(countdown.bind(null, days, hours, minutes, seconds, date), 1000);
+           }
+           {% for event in events %}
+           {{loop.index}}
+           {% set day = 'day' ~ loop.index %}
+           {% set hour = 'hour' ~ loop.index %}
+           {% set minute = 'minute' ~ loop.index %}
+           {% set second = 'second' ~ loop.index %}
+           countdown({{day | tojson}}, {{hour | tojson}}, {{minute | tojson}}, {{second | tojson}}, {{ event["start"] | tojson }});
+           {% endfor %}
+       </script>
+       <div>
+            <h2>Delete an Event</h2>
+            <label>Event:</label>
+          <select name="delete" id="delete" form="deleteform">
+            {% for event in events %}
+            <option value='{{ event["title"] }}'>{{ event["title"] }}</option>
+            {% endfor %}
+          </select>
+          <form action="/countdowns" method="post" id="deleteform">
+              <button class="btn btn-primary" type="submit">Delete</button>
+          </form>
+        </div>
+    </body>
+{% endblock %}
